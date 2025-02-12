@@ -6,7 +6,8 @@ export enum METHODS {
 }
 
 export interface ServerConfig {
-    port: number | string
+    port: number | string,
+    dbFilePath: (filePath:string) => string
 }
 
 export type Error = {
@@ -15,7 +16,8 @@ export type Error = {
 }
 
 export type User = {
-    name: string,
+    id?:number,
+    name?: string,
     email: string,
     password: string
 }

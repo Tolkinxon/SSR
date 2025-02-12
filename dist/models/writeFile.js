@@ -3,12 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readFileUsers = void 0;
-const promises_1 = __importDefault(require("node:fs/promises"));
+exports.writeFile = void 0;
 const config_1 = require("../config");
+const promises_1 = __importDefault(require("node:fs/promises"));
 const { dbFilePath } = config_1.serverConfiguration;
-const readFileUsers = async (fileName) => {
-    let users = await promises_1.default.readFile(dbFilePath(fileName), 'utf-8');
-    return users ? JSON.parse(users) : [];
+const writeFile = async (fileName, body) => {
+    await promises_1.default.writeFile(dbFilePath(fileName), JSON.stringify(body, null, 4));
+    return true;
 };
-exports.readFileUsers = readFileUsers;
+exports.writeFile = writeFile;

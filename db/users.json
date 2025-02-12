@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "tolkinxon",
+        "email": "tolkinxon@fagmail.com",
+        "password": "tolkin234#$Hello"
+    },
+    {
+        "id": 2,
+        "name": "tolkinxon",
+        "email": "tolkinxon@fagmaidl.com",
+        "password": "tolkin234#$Hello"
+    },
+    {
+        "id": 3,
+        "name": "tolkinxon",
+        "email": "tolkinxon@112fagmaidl.com",
+        "password": "tolkin234#$Hello"
+    }
+]

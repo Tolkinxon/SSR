@@ -14,7 +14,7 @@ export class ClientError extends Error {
 
 export class ServerError extends Error {
     status: number;
-    constructor(message:string, status:number){
+    constructor(message:string){
         super()
         this.message = `ServerError: ${message}`;
         this.status = 500;

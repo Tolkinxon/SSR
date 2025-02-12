@@ -10,7 +10,7 @@ class ClientError extends Error {
 }
 exports.ClientError = ClientError;
 class ServerError extends Error {
-    constructor(message, status) {
+    constructor(message) {
         super();
         this.message = `ServerError: ${message}`;
         this.status = 500;
