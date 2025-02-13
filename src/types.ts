@@ -7,7 +7,12 @@ export enum METHODS {
 
 export interface ServerConfig {
     port: number | string,
-    dbFilePath: (filePath:string) => string
+    dbFilePath: (filePath:string) => string,
+    publicFilePath: (filePath:string) => string,
+    content_types: {
+        ["js"]: string,
+        ["css"]:string
+    }
 }
 
 export type Error = {
