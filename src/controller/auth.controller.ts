@@ -83,10 +83,10 @@ class AuthController extends Auth {
                     message: (error as Error).message,
                     status: (error as Error).status
                 }
-                globalError(res, err); 
+                globalError(res, err);
             }
         }
     }
 }
 
-export default new AuthController
+export default new AuthController;

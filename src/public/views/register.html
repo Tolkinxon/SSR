@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./../css/register.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>register page</h1>
-    <script src="./../js/registerjs"></script>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form class="js-form">
+        <h3>Regsiter Here</h3>
+
+        <label for="username">Username</label>
+        <input type="text" name="name"  placeholder="User name" id="username" autocomplete="off">
+
+        <label for="emali">Email</label>
+        <input type="email" name="email" placeholder="Email" id="email" autocomplete="off">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password" id="password">
+
+        <button class="js-login">Log In</button>
+        <div class="social">
+          <div class="go"><i class="fab fa-google"></i>  Google</div>
+          <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+        </div>
+        <a href="./login.html">Sign in</a>
+    </form>
+
+    <script src="./../js/register.js"></script>
 </body>
 </html>

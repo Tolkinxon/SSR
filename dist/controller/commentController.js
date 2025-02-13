@@ -6,11 +6,11 @@ const jwt_1 = require("../lib/jwt/jwt");
 const config_1 = require("../config");
 const { content_types } = config_1.serverConfiguration;
 const { createToken } = jwt_1.tokenServise;
-class JsAndCssLoadController {
-    jsAndCssLoad(req, res) { }
+class CommentController {
+    mainPage(req, res) { }
     ;
     constructor() {
-        this.jsAndCssLoad = async (req, res) => {
+        this.mainPage = async (req, res) => {
             const reqUrl = req.url.trim().toLowerCase();
             const filePath = reqUrl.split('/').slice(-2).join('/');
             console.log(filePath);
@@ -32,4 +32,4 @@ class JsAndCssLoadController {
         };
     }
 }
-exports.default = new JsAndCssLoadController;
+exports.default = new CommentController;

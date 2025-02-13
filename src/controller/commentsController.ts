@@ -11,24 +11,14 @@ import { serverConfiguration } from "../config";
 const { content_types } = serverConfiguration;
 const { createToken } = tokenServise;
 
-class JsAndCssLoadController {
-    jsAndCssLoad(req:IncomingMessage, res: ServerResponse<IncomingMessage>):void{};
-    constructor(){
-        
-        this.jsAndCssLoad = async (req, res) => {
-        const reqUrl:string = (req.url as string).trim().toLowerCase();
-        const filePath:string = reqUrl.split('/').slice(-2).join('/');
-        console.log(filePath);
-        
-
-        
-
+class CommentsController {
+    mainPage(req:IncomingMessage, res: ServerResponse<IncomingMessage>):void{};
+    constructor(){        
+        this.mainPage = async (req, res) => {
             try {
-                if(reqUrl.includes('js')) res.writeHead(200, {"content-type" : 'text/javascript'});
-                else res.writeHead(200, {"content-type" : 'text/css'});
-
-                const jsAndCssFile = await readFilesPublic(filePath);
-                return res.end(jsAndCssFile);
+                res.writeHead(200, {"content-type" : 'text/html'});
+                const mainHtml = await readFilesPublic('views/main.html');
+                return res.end(mainHtml);
             } catch (error) {
                 let err:Error = {
                     message: (error as Error).message,
@@ -40,4 +30,4 @@ class JsAndCssLoadController {
     }
 }
 
-export default new JsAndCssLoadController
+export default new CommentsController;

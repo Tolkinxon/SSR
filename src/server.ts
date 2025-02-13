@@ -4,6 +4,7 @@ import { METHODS } from './types'
 import authController from "./controller/auth.controller";
 import JsAndCssLoadController from "./controller/JsAndCssLoad.controller";
 import { chekToken } from "./models/checkToken";
+import commentsController from "./controller/commentsController";
 const { port } = serverConfiguration;
 
 const server = http.createServer(async(req, res)=>{
@@ -14,14 +15,17 @@ const server = http.createServer(async(req, res)=>{
     console.log(reqUrl);
     
     res.setHeader("Content-Type", "application/json");
-    if(reqUrl.startsWith('/api/login') && reqMethod == METHODS.READ) authController.loginHtml(req, res); 
-    if(reqUrl.startsWith('/api/register') && reqMethod == METHODS.CREATE) authController.register(req, res); 
-    if(reqUrl.startsWith('/api/register') && reqMethod == METHODS.READ) authController.registerHtml(req, res); 
-    if(reqUrl.startsWith('/css') || reqUrl.startsWith('/js')) JsAndCssLoadController.jsAndCssLoad(req, res); 
+    if(reqUrl.startsWith('/api/auth/login') && reqMethod == METHODS.READ) authController.loginHtml(req, res); 
+    if(reqUrl.startsWith('/api/auth/register') && reqMethod == METHODS.CREATE) authController.register(req, res); 
+    if(reqUrl.startsWith('/api/auth/register') && reqMethod == METHODS.READ) authController.registerHtml(req, res); 
+    if(reqUrl.includes('/css') || reqUrl.includes('/js')) JsAndCssLoadController.jsAndCssLoad(req, res); 
 
-    // if(await chekToken(req, res)){
-    //     if(reqUrl.startsWith('/') && reqMethod == METHODS.READ) {}
-    // }
+
+    if(!(reqUrl.includes('/api') )&& reqMethod == METHODS.READ) {
+        if(await chekToken(req, res)){
+            if(reqUrl == '/') commentsController.mainPage(req, res);
+        }
+    }
 
     
 
