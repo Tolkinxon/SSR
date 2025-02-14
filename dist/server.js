@@ -18,17 +18,16 @@ const server = node_http_1.default.createServer(async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     if (reqUrl.startsWith('/api/auth/login') && reqMethod == types_1.METHODS.READ)
         auth_controller_1.default.loginHtml(req, res);
-    if (reqUrl.startsWith('/api/auth/register') && reqMethod == types_1.METHODS.CREATE)
+    else if (reqUrl.startsWith('/api/auth/register') && reqMethod == types_1.METHODS.CREATE)
         auth_controller_1.default.register(req, res);
-    if (reqUrl.startsWith('/api/auth/register') && reqMethod == types_1.METHODS.READ)
+    else if (reqUrl.startsWith('/api/auth/register') && reqMethod == types_1.METHODS.READ)
         auth_controller_1.default.registerHtml(req, res);
-    if (reqUrl.includes('/css') || reqUrl.includes('/js'))
+    else if (reqUrl.includes('/css') || reqUrl.includes('/js'))
         JsAndCssLoad_controller_1.default.jsAndCssLoad(req, res);
-    if (!(reqUrl.includes('/api')) && reqMethod == types_1.METHODS.READ) {
-        if (await (0, checkToken_1.chekToken)(req, res)) {
-            if (reqUrl == '/')
-                commentsController_1.default.mainPage(req, res);
-        }
+    else if (reqUrl == '/')
+        commentsController_1.default.mainPage(req, res);
+    else if (await (0, checkToken_1.chekToken)(req, res)) {
+        console.log('chek token');
     }
 });
 server.listen(port, () => {

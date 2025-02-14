@@ -16,8 +16,6 @@ export const chekToken = async (req:IncomingMessage, res:ServerResponse<Incoming
         let users = await readFileUsers('users.json');
         if(!(users.some((item:User)=> item.id == verifyToken.user_id))) throw new ClientError('Token is invalid', 401);
         if(!(req.headers['user-agent'] == verifyToken.userAgent)) throw new ClientError('Token is invalid', 401);
-
-
         return true
     }
     catch(error){
