@@ -79,7 +79,55 @@ class AuthController extends controller_dto_1.Auth {
                 (0, error_1.globalError)(res, err);
             }
         };
-        this.login = async () => { };
+        this.login = async (req, res) => {
+            try {
+                let dataUser = '';
+                req.on("data", (chunk) => {
+                    dataUser += chunk;
+                });
+                req.on("end", async () => {
+                    try {
+                        let user = JSON.parse(dataUser);
+                        const validator = (0, validator_1.loginValidator)(user);
+                        if (validator) {
+                            let users = await (0, readFile_1.readFileUsers)('users.json');
+                            let foundUser = users.find((item) => item.email == user.email);
+                            if (foundUser) {
+                                if (foundUser.password == user.password) {
+                                    res.statusCode = 201;
+                                    return res.end(JSON.stringify({ message: 'success', status: 201, accessToken: createToken({ user_id: foundUser?.id, userAgent: req.headers["user-agent"] }) }));
+                                }
+                                else {
+                                    res.statusCode = 400;
+                                    return res.end(JSON.stringify({ message: 'Password incorrect', status: 400 }));
+                                }
+                            }
+                            else {
+                                res.statusCode = 400;
+                                return res.end(JSON.stringify({ message: 'Email incorrect', status: 400 }));
+                            }
+                        }
+                        else
+                            res.end(JSON.stringify({ message: 'Incorrect' }));
+                    }
+                    catch (error) {
+                        let err = {
+                            message: error.message,
+                            status: error.status
+                        };
+                        (0, error_1.globalError)(res, err);
+                    }
+                });
+            }
+            catch (error) {
+                console.log(error);
+                let err = {
+                    message: error.message,
+                    status: error.status
+                };
+                (0, error_1.globalError)(res, err);
+            }
+        };
         this.loginHtml = async (req, res) => {
             try {
                 res.writeHead(200, { "content-type": 'text/html' });

@@ -4,7 +4,7 @@ import { IncomingMessage, ServerResponse } from "node:http";
 import { Error, User } from "../types";
 import { globalError, ClientError, ServerError } from "../utils/error";
 import { readFilesPublic, readFileUsers } from "../models/readFile";
-import { registorValidator } from "../utils/validator";
+import { registorValidator, loginValidator } from "../utils/validator";
 import { writeFile } from "../models/writeFile";
 import { tokenServise } from "../lib/jwt/jwt";
 import { serverConfiguration } from "../config";
@@ -72,7 +72,52 @@ class AuthController extends Auth {
                 globalError(res, err); 
             }
         }
-        this.login = async () =>{}
+        this.login = async (req, res) =>{
+            try {
+                let dataUser:string = '';
+                req.on("data", (chunk)=>{
+                    dataUser += chunk;
+                })
+                req.on("end", async ()=>{
+                    try{
+                        let user:User = JSON.parse(dataUser)
+                        const validator = loginValidator(user);
+                        if(validator){
+                            let users:User[] = await readFileUsers('users.json');
+                            let foundUser:User | undefined = users.find((item:User)=> item.email == user.email);
+                            if(foundUser) {
+                                if(foundUser.password == user.password){
+                                    res.statusCode = 201;
+                                  return  res.end(JSON.stringify({message: 'success', status: 201, accessToken: createToken({user_id:foundUser?.id, userAgent: req.headers["user-agent"]})}))
+                                }
+                                else{ 
+                                    res.statusCode = 400;
+                                    return  res.end(JSON.stringify({message: 'Password incorrect', status: 400}))
+                                }
+                            } else{ 
+                                res.statusCode = 400;
+                                return res.end(JSON.stringify({message: 'Email incorrect', status: 400}))
+                            }
+                        } else res.end(JSON.stringify({message: 'Incorrect'}));  
+                    }
+                    catch (error) {
+                        let err:Error = {
+                            message: (error as Error).message,
+                            status: (error as Error).status
+                        }
+                        globalError(res, err);                
+                    }
+                })
+            } catch (error) {
+                console.log(error);
+                
+                let err:Error = {
+                    message: (error as Error).message,
+                    status: (error as Error).status
+                }
+                globalError(res, err);                
+            }
+        }
         this.loginHtml = async (req, res) => {
             try {
                 res.writeHead(200, {"content-type" : 'text/html'});

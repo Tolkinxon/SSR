@@ -3,7 +3,7 @@ if(token) window.location.replace('/')
 
 
 const elForm = document.querySelector('.js-form');
-const elLoginBtn = document.querySelector('.js-login');
+const elRegisterBtn = document.querySelector('.js-register');
 
 const sendData = async (path, data) => {
     const req = await fetch(path, {
@@ -21,7 +21,7 @@ const sendData = async (path, data) => {
     }
 }
 
-elLoginBtn.addEventListener('click',(evt)=>{
+elRegisterBtn.addEventListener('click',(evt)=>{
     evt.preventDefault();
     const formData = new FormData(elForm);
     const formObj = Object.fromEntries(formData.entries());

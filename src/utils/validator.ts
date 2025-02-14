@@ -16,3 +16,14 @@ export const registorValidator = (user:User): boolean => {
 
     return true;
 }
+
+export const loginValidator = (user:User): boolean => {
+    const { email, password } = user;
+
+    if(!email) throw new ClientError("email required!", 400);
+    if(!password) throw new ClientError("password required!", 400);
+    if(!emailRegExp.test(email)) throw new ClientError("incorrect email!", 400);
+    if(!passwordRegex.test(password)) throw new ClientError("incorrect password!", 400);
+
+    return true;
+}
