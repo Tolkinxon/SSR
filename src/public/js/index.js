@@ -1,12 +1,32 @@
 const token = localStorage.getItem('token');
-const userName = localStorage.getItem('user_name');
+const userName = JSON.parse(localStorage.getItem('user_name'));
+
+const elItemTemplate = document.querySelector('.comments__item-template').content;
 const elForm = document.querySelector('.js-form');
 const elInput = document.querySelector('.input__input');
 const elHeading = document.querySelector('.header__heading');
+const elList = document.querySelector('.comments__list');
 
-elHeading.textContent = `Welcome: ${JSON.parse(userName)}`;
+elHeading.textContent = `Welcome: ${userName}`;
 
 
+function render(arr, node){
+    node.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+
+    arr.forEach(({message, user_name, time})=>{
+        const clone = elItemTemplate.cloneNode(true);
+        clone.querySelector('.js-user-name').textContent = user_name;
+        if(user_name == userName) clone.querySelector('.comments__item').style.marginLeft = 'auto';
+        console.log(userName, user_name, 'front');
+        
+        clone.querySelector('.js-user-message').textContent = message;
+        clone.querySelector('.js-user-time').textContent = time;
+
+        fragment.append(clone);
+    })
+    node.append(fragment);
+}
 
 const comments = async () => {
     const req = await fetch('http://localhost:4000/api/comments',{
@@ -17,8 +37,7 @@ const comments = async () => {
     });
 
     const res = await req.json();
-    console.log(res);   
-
+    render(res, elList);
 }
 comments();
 
@@ -34,7 +53,6 @@ const postComments = async (body) => {
 
     const res = await req.json();
     console.log(res);   
-
 }
 
 
