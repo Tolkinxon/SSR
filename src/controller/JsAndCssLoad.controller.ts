@@ -18,14 +18,15 @@ class JsAndCssLoadController {
         this.jsAndCssLoad = async (req, res) => {
         const reqUrl:string = (req.url as string).trim().toLowerCase();
         const filePath:string = reqUrl.split('/').slice(-2).join('/');
-        console.log(filePath);
-        
 
+        console.log(filePath, "file path");
         
-
             try {
                 if(reqUrl.includes('js')) res.writeHead(200, {"content-type" : 'text/javascript'});
-                else res.writeHead(200, {"content-type" : 'text/css'});
+                else if(reqUrl.includes('css')) res.writeHead(200, {"content-type" : 'text/css'});
+                else {
+                    
+                    res.writeHead(200, {"Content-Type" : 'image/jpeg'});}
 
                 const jsAndCssFile = await readFilesPublic(filePath);
                 return res.end(jsAndCssFile);

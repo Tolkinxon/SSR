@@ -13,7 +13,7 @@ class CommentsController {
         this.mainPage = async (req, res) => {
             try {
                 res.writeHead(200, { "content-type": 'text/html' });
-                const mainHtml = await (0, readFile_1.readFilesPublic)('views/main.html');
+                const mainHtml = await (0, readFile_1.readFilesPublic)('views/index.html');
                 return res.end(mainHtml);
             }
             catch (error) {

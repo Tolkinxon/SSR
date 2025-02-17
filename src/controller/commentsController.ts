@@ -17,7 +17,7 @@ class CommentsController {
         this.mainPage = async (req, res) => {
             try {
                 res.writeHead(200, {"content-type" : 'text/html'});
-                const mainHtml = await readFilesPublic('views/main.html');
+                const mainHtml = await readFilesPublic('views/index.html');
                 return res.end(mainHtml);
             } catch (error) {
                 let err:Error = {

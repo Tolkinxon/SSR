@@ -13,7 +13,13 @@ const readFileUsers = async (fileName) => {
 };
 exports.readFileUsers = readFileUsers;
 const readFilesPublic = async (fileName) => {
-    let publicFile = await promises_1.default.readFile(publicFilePath(fileName), 'utf-8');
-    return publicFile;
+    if (fileName.includes('img')) {
+        let publicFile = await promises_1.default.readFile(publicFilePath(fileName));
+        return publicFile;
+    }
+    else {
+        let publicFile = await promises_1.default.readFile(publicFilePath(fileName), 'utf-8');
+        return publicFile;
+    }
 };
 exports.readFilesPublic = readFilesPublic;

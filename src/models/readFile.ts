@@ -9,7 +9,14 @@ export const readFileUsers = async (fileName:string):Promise<[] | User[]> => {
     return users ? JSON.parse(users) : [];
 }
 
-export const readFilesPublic = async (fileName:string):Promise<string> => {
-    let publicFile:User[] | string = await fs.readFile(publicFilePath(fileName), 'utf-8');
-    return publicFile;
+export const readFilesPublic = async (fileName:string):Promise<string | Buffer> => {
+    if(fileName.includes('img')){
+        let publicFile:User[] | string |Buffer = await fs.readFile(publicFilePath(fileName));
+        return publicFile;
+    } else {
+        let publicFile:User[] | string = await fs.readFile(publicFilePath(fileName), 'utf-8');
+        return publicFile;
+    }
+
+    
 }

@@ -1,0 +1,73 @@
+*, 
+::after, 
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('./../img/mountains.jpg');
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.header {
+    margin-bottom: 50px;
+}
+
+.header__heading {
+    text-align: center;
+    color: blueviolet;
+    font-family: serif;
+    
+}
+
+.comments__list {
+    width: 100%;
+    display: flex;
+    height: 400px;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+    overflow: auto;
+    list-style-type: none;
+    border: 2px solid red;
+}
+
+.comments__item {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+.comments__item-user-name {
+    color: black;
+    font-family: sans-serif;
+    text-align: left;
+    margin-block: 5px;
+    font-size: 12px;
+}
+
+.comments__item-message {
+    max-width: 300px;
+    color: blue;
+    font-weight: bold;
+    margin-block: 5px;
+}
+
+.comments__item-time {
+    color: dimgray;
+    font-size: 5px;
+    text-align: right;
+    font-family: sans-serif;
+}
+
+
