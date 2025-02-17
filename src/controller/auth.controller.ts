@@ -36,7 +36,7 @@ class AuthController extends Auth {
                             const checkWriteFile = await writeFile('users.json', users); 
                             if(checkWriteFile) {
                                 res.statusCode = 201;
-                                res.end(JSON.stringify({message: 'success', status: 201, accessToken: createToken({user_id:user.id, userAgent: req.headers["user-agent"]})}))
+                                res.end(JSON.stringify({message: 'success', status: 201, accessToken: createToken({user_id:user.id, user_name: user.name, userAgent: req.headers["user-agent"]})}))
                             }
                             else throw new ServerError("User not saved");
                         } else res.end(JSON.stringify({message: 'Incorrect'}));  
@@ -87,8 +87,8 @@ class AuthController extends Auth {
                             let foundUser:User | undefined = users.find((item:User)=> item.email == user.email);
                             if(foundUser) {
                                 if(foundUser.password == user.password){
-                                    res.statusCode = 201;
-                                  return  res.end(JSON.stringify({message: 'success', status: 201, accessToken: createToken({user_id:foundUser?.id, userAgent: req.headers["user-agent"]})}))
+                                res.statusCode = 201;
+                                  return  res.end(JSON.stringify({message: 'success', user_name: foundUser.name, status: 201, accessToken: createToken({user_id:foundUser?.id, userAgent: req.headers["user-agent"]})}))
                                 }
                                 else{ 
                                     res.statusCode = 400;

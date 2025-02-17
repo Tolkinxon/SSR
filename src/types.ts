@@ -26,3 +26,10 @@ export type User = {
     email: string,
     password: string
 }
+
+export type Comment = {
+    message: string,
+    id?: number,
+    user_name?: string,
+    time: string
+}

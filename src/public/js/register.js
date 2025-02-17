@@ -17,6 +17,7 @@ const sendData = async (path, data) => {
     if(res.status > 300) return  alert(res.message.split(':')[1]);
     else {
         localStorage.setItem('token', res.accessToken);
+        localStorage.setItem('user_name', JSON.stringify(res.user_name));
         window.location.replace('/')
     }
 }

@@ -4,5 +4,23 @@
         "name": "tolkinxon",
         "email": "tolkinxon@fagmail.com",
         "password": "tolkin234#$Hello"
+    },
+    {
+        "id": 2,
+        "name": "tolkinxon",
+        "email": "tolkinxon@gmail.com",
+        "password": "TY45$%fgFG"
+    },
+    {
+        "id": 3,
+        "name": "botir",
+        "email": "botir@gmai.com",
+        "password": "gg44$$FF"
+    },
+    {
+        "id": 4,
+        "name": "Sardor",
+        "email": "sardor@gmail.com",
+        "password": "SAsd$%45"
     }
 ]

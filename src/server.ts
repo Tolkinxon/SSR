@@ -24,7 +24,8 @@ const server = http.createServer(async(req, res)=>{
     else if(reqUrl == '/') commentsController.mainPage(req, res);
     
     else if(await chekToken(req, res)){
-        console.log('chek token');
+        if(reqUrl.startsWith('/api/comment') && reqMethod == METHODS.CREATE) commentsController.comment(req, res); 
+        if(reqUrl.startsWith('/api/comments') && reqMethod == METHODS.READ) commentsController.commentsRead(req, res); 
         
     }
     

@@ -29,7 +29,10 @@ const server = node_http_1.default.createServer(async (req, res) => {
     else if (reqUrl == '/')
         commentsController_1.default.mainPage(req, res);
     else if (await (0, checkToken_1.chekToken)(req, res)) {
-        console.log('chek token');
+        if (reqUrl.startsWith('/api/comment') && reqMethod == types_1.METHODS.CREATE)
+            commentsController_1.default.comment(req, res);
+        if (reqUrl.startsWith('/api/comments') && reqMethod == types_1.METHODS.READ)
+            commentsController_1.default.commentsRead(req, res);
     }
 });
 server.listen(port, () => {

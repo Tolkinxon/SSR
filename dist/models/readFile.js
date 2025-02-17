@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readFilesPublic = exports.readFileUsers = void 0;
+exports.readFilesPublic = exports.readFileComments = exports.readFileUsers = void 0;
 const promises_1 = __importDefault(require("node:fs/promises"));
 const config_1 = require("../config");
 const { dbFilePath, publicFilePath } = config_1.serverConfiguration;
@@ -12,6 +12,11 @@ const readFileUsers = async (fileName) => {
     return users ? JSON.parse(users) : [];
 };
 exports.readFileUsers = readFileUsers;
+const readFileComments = async (fileName) => {
+    let commnets = await promises_1.default.readFile(dbFilePath(fileName), 'utf-8');
+    return commnets ? JSON.parse(commnets) : [];
+};
+exports.readFileComments = readFileComments;
 const readFilesPublic = async (fileName) => {
     if (fileName.includes('img')) {
         let publicFile = await promises_1.default.readFile(publicFilePath(fileName));
