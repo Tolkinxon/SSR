@@ -17,6 +17,7 @@ const sendData = async (path, data) => {
     else {
         localStorage.setItem('token', res.accessToken);
         localStorage.setItem('user_name', JSON.stringify(res.user_name));
+        localStorage.setItem('user_img', JSON.stringify(res.user_img));
         window.location.replace('/')
     }
 }

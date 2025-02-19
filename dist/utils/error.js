@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.globalError = exports.ServerError = exports.ClientError = void 0;
 class ClientError extends Error {
+    status;
     constructor(message, status) {
         super(message);
         this.message = `ClientError: ${message}`;
@@ -10,6 +11,7 @@ class ClientError extends Error {
 }
 exports.ClientError = ClientError;
 class ServerError extends Error {
+    status;
     constructor(message) {
         super();
         this.message = `ServerError: ${message}`;

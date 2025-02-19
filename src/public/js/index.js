@@ -1,31 +1,33 @@
 const token = localStorage.getItem('token');
 const userName = JSON.parse(localStorage.getItem('user_name'));
+const userImg = JSON.parse(localStorage.getItem('user_img'));
 
 const elItemTemplate = document.querySelector('.comments__item-template').content;
 const elForm = document.querySelector('.js-form');
 const elInput = document.querySelector('.input__input');
 const elHeading = document.querySelector('.header__heading');
+const elUserImg = document.querySelector('.header__img');
 const elList = document.querySelector('.comments__list');
 
 elHeading.textContent = `Welcome: ${userName}`;
+elUserImg.src = userImg;
 
 
 function render(arr, node){
     node.innerHTML = '';
-    const fragment = document.createDocumentFragment();
+    const fragment = new DocumentFragment();
 
     arr.forEach(({message, user_name, time})=>{
         const clone = elItemTemplate.cloneNode(true);
         clone.querySelector('.js-user-name').textContent = user_name;
         if(user_name == userName) clone.querySelector('.comments__item').style.marginLeft = 'auto';
-        console.log(userName, user_name, 'front');
         
         clone.querySelector('.js-user-message').textContent = message;
         clone.querySelector('.js-user-time').textContent = time;
 
-        fragment.append(clone);
+        fragment.appendChild(clone);
     })
-    node.append(fragment);
+    node.appendChild(fragment);
 }
 
 const comments = async () => {

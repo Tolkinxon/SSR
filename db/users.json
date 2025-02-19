@@ -3,36 +3,21 @@
         "id": 1,
         "name": "tolkinxon",
         "email": "tolkinxon@fagmail.com",
-        "password": "tolkin234#$Hello"
+        "password": "tolkin234#$Hello",
+        "imgage": "./img/1"
     },
     {
         "id": 2,
-        "name": "tolkinxon",
-        "email": "tolkinxon@gmail.com",
-        "password": "TY45$%fgFG"
+        "name": "fff",
+        "email": "fff@gamil.com",
+        "password": "dddGG^^yyh78",
+        "image": "/img/2.png"
     },
     {
         "id": 3,
-        "name": "botir",
-        "email": "botir@gmai.com",
-        "password": "gg44$$FF"
-    },
-    {
-        "id": 4,
-        "name": "Sardor",
-        "email": "sardor@gmail.com",
-        "password": "gg44$$FF"
-    },
-    {
-        "id": 5,
-        "name": "alisher",
-        "email": "alisher@gmail.com",
-        "password": "aa33AA$$"
-    },
-    {
-        "id": 6,
-        "name": "shox",
-        "email": "shox@gmail.com",
-        "password": "gg55HH^^"
+        "name": "Azim",
+        "email": "azim@gmail.com",
+        "password": "dd33$$FF",
+        "image": "/img/3.png"
     }
 ]

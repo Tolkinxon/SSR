@@ -11,6 +11,7 @@ export const serverConfiguration:ServerConfig = {
     port: process.env.PORT || 5000,
     dbFilePath: (filePath:string) => path.resolve('db', filePath),
     publicFilePath: (filePath:string) => path.resolve('src', 'public', filePath),
+    publicImgPath: (filePath:string) => path.resolve('src', 'public', 'img', filePath),
     content_types: {
         ["js"]: "text/javascript",
         ["css"]: "text/css"

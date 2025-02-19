@@ -9,6 +9,7 @@ export interface ServerConfig {
     port: number | string,
     dbFilePath: (filePath:string) => string,
     publicFilePath: (filePath:string) => string,
+    publicImgPath: (filePath:string) => string,
     content_types: {
         ["js"]: string,
         ["css"]:string
@@ -24,7 +25,8 @@ export type User = {
     id?:number,
     name?: string,
     email: string,
-    password: string
+    password: string,
+    image?: string
 }
 
 export type Comment = {

@@ -11,6 +11,7 @@ exports.serverConfiguration = {
     port: process.env.PORT || 5000,
     dbFilePath: (filePath) => node_path_1.default.resolve('db', filePath),
     publicFilePath: (filePath) => node_path_1.default.resolve('src', 'public', filePath),
+    publicImgPath: (filePath) => node_path_1.default.resolve('src', 'public', 'img', filePath),
     content_types: {
         ["js"]: "text/javascript",
         ["css"]: "text/css"

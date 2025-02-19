@@ -22,24 +22,41 @@ class AuthController extends controller_dto_1.Auth {
         super();
         this.register = async (req, res) => {
             try {
-                let newUser = '';
+                let newUser = [];
                 req.on("data", (chunk) => {
-                    newUser += chunk;
+                    newUser.push(chunk);
                 });
                 req.on("end", async () => {
                     try {
-                        let user = JSON.parse(newUser);
-                        const validator = (0, validator_1.registorValidator)(user);
+                        const combinedBuffer = Buffer.concat(newUser);
+                        const lines = Buffer.from('\r\n\r\n');
+                        const positionLines = combinedBuffer.lastIndexOf(lines);
+                        const boundary = req.headers['content-type']?.split('boundary=')[1];
+                        let user = combinedBuffer.subarray(0, positionLines).toString('utf-8').split(boundary + '\r\nContent-Disposition: form-data; name=');
+                        let imgBuffer = combinedBuffer.subarray(positionLines + 4);
+                        const extention = user[4].split('\r\n')[1].split(' ')[1].split('/')[1];
+                        let userObj = {
+                            name: user[1].split('\r\n')[2],
+                            email: user[2].split('\r\n')[2],
+                            password: user[3].split('\r\n')[2],
+                            image: extention
+                        };
+                        const validator = (0, validator_1.registorValidator)(userObj);
                         if (validator) {
                             let users = await (0, readFile_1.readFileUsers)('users.json');
-                            if (users.some((item) => item.email == user.email))
+                            if (users.some((item) => item.email == userObj.email))
                                 throw new error_1.ClientError('This user avialable!', 400);
-                            user = { id: users.length ? users.at(-1).id + 1 : 1, ...user };
-                            users.push(user);
+                            userObj = { id: users.length ? users.at(-1).id + 1 : 1, ...userObj };
+                            userObj.image = `/img/${userObj.id}.${extention}`;
+                            const uploadImg = await (0, writeFile_1.writeFileImg)(`${userObj.id}.${extention}`, imgBuffer);
+                            if (uploadImg)
+                                users.push(userObj);
+                            else
+                                throw new error_1.ServerError("Image not saved");
                             const checkWriteFile = await (0, writeFile_1.writeFile)('users.json', users);
                             if (checkWriteFile) {
                                 res.statusCode = 201;
-                                res.end(JSON.stringify({ message: 'success', status: 201, user_name: user.name, accessToken: createToken({ user_id: user.id, userAgent: req.headers["user-agent"] }) }));
+                                res.end(JSON.stringify({ message: 'success', status: 201, user_name: userObj.name, user_img: userObj.image, accessToken: createToken({ user_id: userObj.id, userAgent: req.headers["user-agent"] }) }));
                             }
                             else
                                 throw new error_1.ServerError("User not saved");
@@ -95,7 +112,7 @@ class AuthController extends controller_dto_1.Auth {
                             if (foundUser) {
                                 if (foundUser.password == user.password) {
                                     res.statusCode = 201;
-                                    return res.end(JSON.stringify({ message: 'success', user_name: foundUser.name, status: 201, accessToken: createToken({ user_id: foundUser?.id, userAgent: req.headers["user-agent"] }) }));
+                                    return res.end(JSON.stringify({ message: 'success', user_name: foundUser.name, status: 201, user_img: foundUser.image, accessToken: createToken({ user_id: foundUser?.id, userAgent: req.headers["user-agent"] }) }));
                                 }
                                 else {
                                     res.statusCode = 400;

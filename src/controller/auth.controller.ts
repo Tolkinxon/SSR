@@ -5,7 +5,7 @@ import { Error, User } from "../types";
 import { globalError, ClientError, ServerError } from "../utils/error";
 import { readFilesPublic, readFileUsers } from "../models/readFile";
 import { registorValidator, loginValidator } from "../utils/validator";
-import { writeFile } from "../models/writeFile";
+import { writeFile, writeFileImg } from "../models/writeFile";
 import { tokenServise } from "../lib/jwt/jwt";
 import { serverConfiguration } from "../config";
 const { content_types } = serverConfiguration;
@@ -20,23 +20,45 @@ class AuthController extends Auth {
         super()
         this.register = async (req, res) =>{
             try {
-                let newUser:string = '';
+                let newUser: Array<Buffer | User> = [];
                 req.on("data", (chunk)=>{
-                    newUser += chunk;
+                    newUser.push(chunk);
                 })
                 req.on("end", async ()=>{
                     try{
-                        let user:User = JSON.parse(newUser)
-                        const validator = registorValidator(user);
+                        const combinedBuffer = Buffer.concat(newUser as Buffer[]);
+
+                        const lines = Buffer.from('\r\n\r\n')
+                        const positionLines = combinedBuffer.lastIndexOf(lines);
+                        const boundary = req.headers['content-type']?.split('boundary=')[1];
+
+                        let user: string | string[] = combinedBuffer.subarray(0, positionLines).toString('utf-8').split((boundary as string) + '\r\nContent-Disposition: form-data; name=');
+                        let imgBuffer = combinedBuffer.subarray(positionLines+4);
+                        const extention = user[4].split('\r\n')[1].split(' ')[1].split('/')[1];
+
+                        let userObj:User = {
+                            name: user[1].split('\r\n')[2],
+                            email: user[2].split('\r\n')[2],
+                            password: user[3].split('\r\n')[2],
+                            image: extention
+                        }
+
+                        
+                        const validator = registorValidator(userObj);
                         if(validator){
                             let users:User[] = await readFileUsers('users.json');
-                            if(users.some((item:User) => item.email == user.email)) throw new ClientError('This user avialable!', 400);
-                            user = {id: users.length ? (((users as User[]).at(-1) as User).id as number) + 1 : 1, ...user};
-                            users.push(user);
+                            if(users.some((item:User) => item.email == userObj.email)) throw new ClientError('This user avialable!', 400);
+                            userObj = {id: users.length ? (((users as User[]).at(-1) as User).id as number) + 1 : 1, ...userObj};
+                            userObj.image = `/img/${userObj.id}.${extention}`;
+                            
+                            const uploadImg = await writeFileImg(`${userObj.id}.${extention}`, imgBuffer);
+                            if(uploadImg) users.push(userObj);
+                            else throw new ServerError("Image not saved");
+                            
                             const checkWriteFile = await writeFile('users.json', users); 
                             if(checkWriteFile) {
                                 res.statusCode = 201;
-                                res.end(JSON.stringify({message: 'success', status: 201, user_name: user.name, accessToken: createToken({user_id:user.id,  userAgent: req.headers["user-agent"]})}))
+                                res.end(JSON.stringify({message: 'success', status: 201, user_name: userObj.name, user_img:userObj.image, accessToken: createToken({user_id:userObj.id,  userAgent: req.headers["user-agent"]})}))
                             }
                             else throw new ServerError("User not saved");
                         } else res.end(JSON.stringify({message: 'Incorrect'}));  
@@ -88,7 +110,7 @@ class AuthController extends Auth {
                             if(foundUser) {
                                 if(foundUser.password == user.password){
                                 res.statusCode = 201;
-                                  return  res.end(JSON.stringify({message: 'success', user_name: foundUser.name, status: 201, accessToken: createToken({user_id:foundUser?.id, userAgent: req.headers["user-agent"]})}))
+                                  return  res.end(JSON.stringify({message: 'success', user_name: foundUser.name, status: 201, user_img: foundUser.image, accessToken: createToken({user_id:foundUser?.id, userAgent: req.headers["user-agent"]})}))
                                 }
                                 else{ 
                                     res.statusCode = 400;

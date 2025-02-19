@@ -6,7 +6,9 @@
 
 body {
     background-image: url('./../img/mountains.jpg');
-    background-size: 1400px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;    
 }
 
 .container {
@@ -22,6 +24,21 @@ body {
     margin-bottom: 50px;
 }
 
+.header__container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__img {
+  object-fit: cover;
+  border-radius: 50%;
+  padding: 2px;
+  border: 3px solid rgb(189, 51, 182);
+  background-color: white;
+}
+
+
 .header__heading {
     text-align: center;
     color: rgb(184, 180, 187);
@@ -30,16 +47,15 @@ body {
 }
 
 .comments__list {
+  position: relative;
     width: 100%;
-    display: flex;
-    height: 400px;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
+    height: auto; 
     overflow: auto;
     list-style-type: none;
     padding: 10px;
     margin-bottom: 2px;
+    max-height: 400px;
+
 }
 
 .comments__item {
@@ -80,12 +96,10 @@ body {
 }
 
 
-/* width */
 ::-webkit-scrollbar {
     width: 10px;
   }
   
-  /* Track */
   ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px rgb(100, 78, 78); 
     border-radius: 10px;
@@ -95,16 +109,14 @@ body {
     box-shadow: inset 0 0 5px rgb(56, 47, 47); 
   }
    
-  /* Handle */
   ::-webkit-scrollbar-thumb {
     background: rgb(151, 142, 142); 
     border-radius: 5px;
   }
   
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #5a5454; 
-  }
+  } 
 
   .form {
     width: 100%;
