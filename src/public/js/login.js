@@ -1,7 +1,6 @@
 const token = window.localStorage.getItem('token');
 if(token) window.location.replace('/');
 
-
 const elForm = document.querySelector('.js-form');
 const elLoginBtn = document.querySelector('.js-login');
 
@@ -26,6 +25,6 @@ elLoginBtn.addEventListener('click',(evt)=>{
     evt.preventDefault();
     const formData = new FormData(elForm);
     const formObj = Object.fromEntries(formData.entries());
-    sendData('http://localhost:4000/api/auth/login', formObj);
+    sendData(`http://${api}:4000/api/auth/login`, formObj);
 })
 

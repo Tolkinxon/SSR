@@ -29,7 +29,7 @@ function render(arr, node){
 }
 
 const comments = async () => {
-    const req = await fetch('http://localhost:4000/api/comments',{
+    const req = await fetch(`http://${api}:4000/api/comments`,{
         method: 'GET',
         headers:{
             token: token
@@ -42,7 +42,7 @@ const comments = async () => {
 comments();
 
 const postComments = async (body) => {
-    const req = await fetch('http://localhost:4000/api/comment',{
+    const req = await fetch(`http://${api}:4000/api/comment`,{
         method: 'POST',
         headers:{
             "Content-type": "application/json",

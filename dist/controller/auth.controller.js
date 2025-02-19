@@ -39,7 +39,7 @@ class AuthController extends controller_dto_1.Auth {
                             const checkWriteFile = await (0, writeFile_1.writeFile)('users.json', users);
                             if (checkWriteFile) {
                                 res.statusCode = 201;
-                                res.end(JSON.stringify({ message: 'success', status: 201, accessToken: createToken({ user_id: user.id, user_name: user.name, userAgent: req.headers["user-agent"] }) }));
+                                res.end(JSON.stringify({ message: 'success', status: 201, user_name: user.name, accessToken: createToken({ user_id: user.id, userAgent: req.headers["user-agent"] }) }));
                             }
                             else
                                 throw new error_1.ServerError("User not saved");

@@ -24,9 +24,7 @@ class JsAndCssLoadController {
             try {
                 if(reqUrl.includes('js')) res.writeHead(200, {"content-type" : 'text/javascript'});
                 else if(reqUrl.includes('css')) res.writeHead(200, {"content-type" : 'text/css'});
-                else {
-                    
-                    res.writeHead(200, {"Content-Type" : 'image/jpeg'});}
+                else { res.writeHead(200, {"Content-Type" : 'image/jpeg'});}
 
                 const jsAndCssFile = await readFilesPublic(filePath);
                 return res.end(jsAndCssFile);

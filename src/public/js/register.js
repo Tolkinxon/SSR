@@ -26,5 +26,5 @@ elRegisterBtn.addEventListener('click',(evt)=>{
     evt.preventDefault();
     const formData = new FormData(elForm);
     const formObj = Object.fromEntries(formData.entries());
-    sendData('http://localhost:4000/api/auth/register', formObj);
+    sendData(`http://${api}:4000/api/auth/register`, formObj);
 })
