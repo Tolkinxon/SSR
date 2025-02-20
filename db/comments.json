@@ -1,68 +1,50 @@
 [
     {
+        "id": 1,
+        "user_name": "Tolkinxon",
+        "message": "hello Everyone",
+        "time": "22:48"
+    },
+    {
         "id": 2,
-        "user_name": "tolkinxon",
-        "message": "salom",
-        "time": "22:25"
+        "user_name": "Tolkinxon",
+        "message": "Finally we have end",
+        "time": "22:51"
     },
     {
         "id": 3,
-        "user_name": "botir",
-        "message": "salom",
-        "time": "22:26"
+        "user_name": "Tolkinxon",
+        "message": "Samol",
+        "time": "22:56"
     },
     {
         "id": 4,
-        "user_name": "botir",
-        "message": "salom",
-        "time": "22:26"
+        "user_name": "Azizbek",
+        "message": "Salom",
+        "time": "10:11"
     },
     {
         "id": 5,
-        "user_name": "botir",
-        "message": "hello botir",
-        "time": "22:27"
+        "user_name": "Azizbek",
+        "message": "Salom",
+        "time": "10:12"
     },
     {
         "id": 6,
-        "user_name": "Sardor",
-        "message": "tugadimi",
-        "time": "22:36"
+        "user_name": "Azizbek",
+        "message": "Salom",
+        "time": "10:17"
     },
     {
         "id": 7,
-        "user_name": "Sardor",
-        "message": "salom hammaga",
-        "time": "22:37"
+        "user_name": "Abdurazzoq ",
+        "message": "Hello Avery one",
+        "time": "11:6"
     },
     {
         "id": 8,
-        "user_name": "Sardor",
-        "message": "salomlar",
-        "time": "22:37"
-    },
-    {
-        "id": 9,
-        "user_name": "Sardor",
-        "message": "botir botir botir",
-        "time": "22:52"
-    },
-    {
-        "id": 10,
-        "user_name": "tolkinxon",
-        "message": "salom gruppa",
-        "time": "23:12"
-    },
-    {
-        "id": 11,
-        "user_name": "Sardor",
-        "message": "fahoe,c",
-        "time": "10:15"
-    },
-    {
-        "id": 12,
-        "user_name": "shox",
-        "message": "salom bolalar",
-        "time": "18:20"
+        "user_name": "Tolkinxon",
+        "message": "Salom Abdurazzoq",
+        "time": "11:6"
     }
 ]
